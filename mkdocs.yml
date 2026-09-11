@@ -1,0 +1,41 @@
+site_name: SANEI メール自動処理 · 画面マニュアル
+site_description: ブッキング・S/R・危険物メールの AI 自動処理 — 担当者向け画面の使い方（日本語・한국어）
+site_url: https://sinokorofficial.github.io/jp-mail-docs/
+repo_name: jp-mail-docs
+repo_url: https://github.com/SinokorOfficial/jp-mail-docs
+docs_dir: docs
+
+nav:
+  - 日本語: index.md
+  - 한국어: ko.md
+
+theme:
+  name: material
+  language: ja
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: green
+      toggle:
+        icon: material/weather-night
+        name: ダークモード
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: green
+      toggle:
+        icon: material/weather-sunny
+        name: ライトモード
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+
+markdown_extensions:
+  - admonition
+  - tables
+  - attr_list
+  - toc:
+      permalink: true
