@@ -9,7 +9,11 @@ nav:
   - 日本語: index.md
   - 한국어: ko.md
   - 개발 문서:
-      - 수입 A/N → ULOGI 전송 명세: dev/an_ulogi_spec.md
+      - 공통 구조·운영: dev/overview.md
+      - 부킹 → ULOGI 부킹 저장: dev/booking_ulogi_spec.md
+      - S/R → ULOGI House B/L 저장: dev/sr_hbl_spec.md
+      - 위험물 → SKRAI 적재·포털: dev/dg_skrai_spec.md
+      - 수입 A/N → ULOGI 전송: dev/an_ulogi_spec.md
 
 theme:
   name: material
@@ -41,3 +45,8 @@ markdown_extensions:
   - attr_list
   - toc:
       permalink: true
+  - pymdownx.superfences:            # ```mermaid 플로우차트 (개발 문서)
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
