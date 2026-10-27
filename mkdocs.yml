@@ -8,6 +8,8 @@ docs_dir: docs
 nav:
   - 日本語: index.md
   - 한국어: ko.md
+  - 개발 문서:
+      - 수입 A/N → ULOGI 전송 명세: dev/an_ulogi_spec.md
 
 theme:
   name: material
