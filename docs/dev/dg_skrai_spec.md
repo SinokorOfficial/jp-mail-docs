@@ -42,7 +42,7 @@ flowchart TD
 
 - **連絡表 + 明細 가 함께 오면 明細가 정본**(`dg_candidates`): 같은 묶음(파일명의 선사 부킹번호 16자리, 없으면 連絡表·明細 표기를 뺀 이름)에 連絡表이 있으면 신고서만 읽습니다. 둘 다 읽으면 같은 품목이 두 번 등록되기 때문입니다. 엑셀 품목표가 있으면 그것이 정본입니다.
 - **긴 서류**: PDF 는 쪽 이미지로 바꿔 최대 `DG_MAX_PAGES`(120)쪽까지, 한 요청은 `DG_BATCH`(24)쪽·`DG_REQ_MAX`(24MB, base64 합계) 둘 다 넘지 않게 나눠 보내고 합칩니다. 엑셀은 표 텍스트로 같은 프롬프트를 씁니다.
-- **흥아 LCL**: 메일 제목·본문에 흥아/HASL + LCL 문구가 있으면(`LCL_NO_BKG_RX`) 부킹번호가 필수에서 빠지고, 메일에 적힌 Master B/L 을 Booking No. 로 넣습니다(자동 보정에 기록). Master B/L 도 없으면 Booking No. 없이 확정은 되지만 **적재 단계에서 그 행은 키가 없어 빠집니다**(§8.1).
+- **흥아 LCL**: 메일 제목·본문에 흥아/HASL + LCL 문구가 있으면(`LCL_NO_BKG_RX`) 부킹번호가 필수에서 빠지고 메일에 적힌 Master B/L 을 Booking No. 로 넣습니다(자동 보정에 기록). Master B/L 도 없으면 Booking No. 없이 확정은 되지만 **적재 단계에서 그 행은 키가 없어 빠집니다**(§8.1).
 
 ## 4. 판독 항목과 정규화·자동 보정
 
@@ -62,7 +62,7 @@ flowchart TD
 
 ## 5. 확인 규칙·필수 항목·확정 API
 
-**필수 항목**(`DG_XL_REQUIRED`, 비면 ERROR → 확정 때 한 번 더 물음): Booking No. · Container No. · UN CODE · Class No(IMDG) · SUB RISK · Packing GROUP — 6항목. Certificate No. 는 필수가 아닙니다(읽히면 채움). 예외: Class 2 는 Packing GROUP 면제, 흥아 LCL 은 Booking No. 면제. 그 밖의 ERROR(`dg_precheck`): 부킹번호 규칙 위반, 컨테이너 검증자리 불일치, EMS Contact No 30B 초과(줄이지 못한 경우), 품목 0건. 화면 `/dg` 는 `/api/dg`(items·problems·required·restore_days)로 그리며, 건별·일괄 엑셀(`/api/dg/export.xlsx`·`.zip`)은 그대로 남아 있습니다.
+**필수 항목**(`DG_XL_REQUIRED`, 비면 ERROR → 확정 때 한 번 더 물음): Booking No. · Container No. · UN CODE · Class No(IMDG) · SUB RISK · Packing GROUP — 6항목. Certificate No. 는 필수가 아닙니다(읽히면 채움). 예외: Class 2 는 Packing GROUP 면제, 흥아 LCL 은 Booking No. 면제. 그 밖의 ERROR(`dg_precheck`): 부킹번호 규칙 위반, 컨테이너 검증자리 불일치, EMS Contact No 30B 초과(줄이지 못한 경우), 품목 0건. 화면 `/dg` 는 `/api/dg`(items·problems·required·restore_days)로 그리며 건별·일괄 엑셀(`/api/dg/export.xlsx`·`.zip`)은 그대로 남아 있습니다.
 
 ```mermaid
 flowchart TD
@@ -156,7 +156,7 @@ stateDiagram-v2
 | Y (confirm) | 포털 반영 완료 | 포털 담당자 | **건드리지 않음** — 포털이 Y 로 바꾼 부킹은 우리가 다시 쓰지 않습니다 |
 | N (reject) | 제외 | 포털 담당자·운영자 | 건드리지 않음 |
 
-포털용 예문입니다. 권한은 `SELECT` + `UPDATE (STATUS, UPDNO, UPDDATE)` 로 계획돼 있고, **포털 담당자 계정 확인 후 부여 예정**(아직 미부여).
+포털용 예문입니다. 권한은 `SELECT` + `UPDATE (STATUS, UPDNO, UPDDATE)` 로 계획돼 있고 **포털 담당자 계정 확인 후 부여 예정**(아직 미부여).
 
 ```sql
 -- ① 가져갈 품목 (회사별) — 인덱스 T_AI_DG_H_IDX01
@@ -215,7 +215,7 @@ flowchart TD
 
 ### 8.3 RMK 일본어 문구
 
-서버는 한국어로 기록하고, 적재할 때 `static/msgs.js` 와 같은 규칙으로 일본어로 옮깁니다(규칙에 없는 문구는 원문 그대로). `H.RMK` 는 다음 종류를 이어 붙인 것입니다.
+서버는 한국어로 기록합니다. 적재할 때 `static/msgs.js` 와 같은 규칙으로 일본어로 옮깁니다(규칙에 없는 문구는 원문 그대로). `H.RMK` 는 다음 종류를 이어 붙인 것입니다.
 
 | 머리말 | 내용 | 예 |
 |---|---|---|
